@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "e33d6d58-026c-4d56-9af4-1a2ff8cfdeaa",
+		"name": "GuidLine_API_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET venues list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7469612a-a816-4e60-b00d-9866554baabe",
+						"exec": [
+							"pm.test(\"Status code is 200, we check out integration with BitBucket\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "b9de41dd-8d72-4d5b-8316-cc56473dffe2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/admin/venue/all?limit=25",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"venue",
+						"all"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Search venue by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e8091d8-90a5-4ee1-9f4e-472ab34efbf8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Venue name should be Almondine\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.venues[0].name).to.eql(\"Almondine\");",
+							"});",
+							"",
+							"pm.test(\"Body matches search venue\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Almondine\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "f6eeaa67-99db-4444-8b93-210b6747b882",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/admin/venue/all?limit=25&search=Almondin",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"admin",
+						"venue",
+						"all"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "25"
+						},
+						{
+							"key": "search",
+							"value": "Almondin"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
